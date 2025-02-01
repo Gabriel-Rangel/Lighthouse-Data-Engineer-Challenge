@@ -7,7 +7,7 @@ Finally, output a CSV file summarizing the number of teams per competition in de
 ## Table of Contents
 1. [ETL Process](#etl-process)
 2. [Datawarehouse](#datawarehouse)
-3. [Repository Structure](#repository_structure)
+3. [Repository Structure](#repository-structure)
 3. [Quick Start](#quick-start)
 4. [Requirements](#requirements)
 
