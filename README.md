@@ -8,7 +8,7 @@ Finally, output a CSV file summarizing the number of teams per competition in de
 1. [Repository Structure](#-repository_structure)
 2. [Datawarehouse](#-datawarehouse)
 3. [Quick Start](#-quick-start)
-4. [Requirements](#-requirements)
+4. [Requirements]()
 
 ## ETL Process
 ![ETL DIAGRAM](img/etldiagram.png)
