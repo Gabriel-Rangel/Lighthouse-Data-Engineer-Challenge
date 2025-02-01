@@ -3,27 +3,53 @@ from unittest.mock import patch, MagicMock, call
 import pandas as pd
 from app.main import export_summary, main
 
+"""
+Explanation of @pytest.fixture:
+
+The @pytest.fixture decorator is used to define a fixture function in pytest. Fixtures are a way to provide a fixed baseline upon which tests can reliably and repeatedly execute. 
+They are used to set up some context for the tests, such as creating mock objects, preparing test data, or configuring the environment. 
+Fixtures are defined using functions, and they can return values that are then injected into test functions that depend on them.
+"""
+
 @pytest.fixture
-def mock_makedirs(monkeypatch):
+def mock_makedirs():
     with patch('main.os.makedirs') as mock:
         yield mock
 
 @pytest.fixture
-def mock_connect(monkeypatch):
+def mock_connect():
     with patch('main.sqlite3.connect') as mock:
         yield mock
 
 @pytest.fixture
-def mock_read_sql_query(monkeypatch):
+def mock_read_sql_query():
     with patch('main.pd.read_sql_query') as mock:
         yield mock
 
 @pytest.fixture
-def mock_to_csv(monkeypatch):
+def mock_to_csv():
     with patch('main.pd.DataFrame.to_csv') as mock:
         yield mock
 
 def test_export_summary(mock_makedirs, mock_connect, mock_read_sql_query, mock_to_csv):
+    """
+    Test the export_summary function.
+    This test verifies that the export_summary function performs the following actions:
+    1. Creates the output directory if it does not exist.
+    2. Connects to the SQLite database located at "db/football_data.sqlite".
+    3. Executes a SQL query to retrieve the competition summary data.
+    4. Exports the retrieved data to a CSV file at "output/summary.csv".
+    Mocks:
+    - mock_makedirs: Mock for os.makedirs to avoid creating actual directories.
+    - mock_connect: Mock for sqlite3.connect to avoid making actual database connections.
+    - mock_read_sql_query: Mock for pandas.read_sql_query to avoid executing actual SQL queries.
+    - mock_to_csv: Mock for pandas.DataFrame.to_csv to avoid writing actual files.
+    Assertions:
+    - Verifies that os.makedirs is called with the correct arguments.
+    - Verifies that sqlite3.connect is called with the correct database path.
+    - Verifies that pandas.read_sql_query is called once.
+    - Verifies that pandas.DataFrame.to_csv is called once with the correct file path and parameters.
+    """
     # Mock the database connection and query result
     mock_conn = MagicMock()
     mock_connect.return_value = mock_conn
@@ -64,7 +90,34 @@ def mock_logger():
     with patch('app.main.logger') as mock:
         yield mock
 
+@pytest.fixture
+def mock_logging_setup():
+    with patch('app.main.logging.basicConfig') as mock_basic_config, \
+         patch('app.main.logging.FileHandler') as mock_file_handler, \
+         patch('app.main.logging.StreamHandler') as mock_stream_handler, \
+         patch('app.main.os.makedirs') as mock_makedirs:
+        yield {
+            'basic_config': mock_basic_config,
+            'file_handler': mock_file_handler,
+            'stream_handler': mock_stream_handler,
+            'makedirs': mock_makedirs
+        }
+
 def test_main_success(mock_etl_functions, mock_logger):
+    """
+    Test the main function for a successful ETL process.
+    This test verifies that the ETL process runs successfully by mocking the ETL functions and logger.
+    It sets up mock return values for the extract and transform functions, executes the main function,
+    and checks that all ETL functions are called in the correct order. Additionally, it verifies that
+    the appropriate logging calls are made.
+    Args:
+        mock_etl_functions (dict): A dictionary of mocked ETL functions.
+        mock_logger (Mock): A mocked logger object.
+    Assertions:
+        - All ETL functions (drop_data, extract_data, transform_data, create_tables, load_data, export_summary)
+          are called exactly once.
+        - The logger's info method is called with the expected messages in the correct order.
+    """
     # Setup mock return values
     mock_etl_functions['extract_data'].return_value = (
         [{'id': 1, 'name': 'Competition1'}],
