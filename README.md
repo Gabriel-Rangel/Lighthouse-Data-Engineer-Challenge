@@ -11,7 +11,7 @@ Finally, output a CSV file summarizing the number of teams per competition in de
 4. [Requirements](#-requirements)
 
 ## ETL Process
-![ETL DIAGRAM](img/etl.png)
+![ETL DIAGRAM](img/etldiagram.png)
 
 
 ## Datawarehouse
