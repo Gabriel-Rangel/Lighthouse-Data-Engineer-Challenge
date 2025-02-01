@@ -4,9 +4,9 @@ import os
 import logging
 from datetime import datetime
 
-from extract import drop_data, extract_data
-from transform import transform_data
-from load import create_tables, load_data
+from etl.extract import drop_data, extract_data
+from etl.transform import transform_data
+from etl.load import create_tables, load_data
 
 # Create logs directory if it doesn't exist
 LOGS_DIR = "logs"
