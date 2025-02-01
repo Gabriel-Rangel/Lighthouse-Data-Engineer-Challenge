@@ -1,0 +1,69 @@
+2025-02-01 17:08:06,227 - INFO - __main__ - Starting ETL process
+2025-02-01 17:08:06,227 - INFO - __main__ - Cleaning data folder
+2025-02-01 17:08:06,228 - INFO - etl.extract - Starting cleanup of data/raw
+2025-02-01 17:08:06,245 - INFO - etl.extract - Cleaned up existing contents in data/raw
+2025-02-01 17:08:06,246 - INFO - etl.extract - Recreation of data/raw completed
+2025-02-01 17:08:06,246 - INFO - __main__ - Extracting data
+2025-02-01 17:08:07,154 - INFO - etl.extract - 
+Data saved to data/raw\competitions.json
+2025-02-01 17:08:07,156 - INFO - etl.extract - Fetching teams for competition: Campeonato Brasileiro Série A
+2025-02-01 17:08:07,975 - INFO - etl.extract - 
+Data saved to data/raw\teams_BSA.json
+2025-02-01 17:08:07,976 - INFO - etl.extract - Fetching teams for competition: Championship
+2025-02-01 17:08:10,178 - INFO - etl.extract - 
+Data saved to data/raw\teams_ELC.json
+2025-02-01 17:08:10,181 - INFO - etl.extract - Fetching teams for competition: Premier League
+2025-02-01 17:08:11,638 - INFO - etl.extract - 
+Data saved to data/raw\teams_PL.json
+2025-02-01 17:08:11,641 - INFO - etl.extract - Fetching teams for competition: UEFA Champions League
+2025-02-01 17:08:13,400 - INFO - etl.extract - 
+Data saved to data/raw\teams_CL.json
+2025-02-01 17:08:13,405 - INFO - etl.extract - Fetching teams for competition: European Championship
+2025-02-01 17:08:15,566 - INFO - etl.extract - 
+Data saved to data/raw\teams_EC.json
+2025-02-01 17:08:15,570 - INFO - etl.extract - Fetching teams for competition: Ligue 1
+2025-02-01 17:08:16,957 - INFO - etl.extract - 
+Data saved to data/raw\teams_FL1.json
+2025-02-01 17:08:16,959 - INFO - etl.extract - Fetching teams for competition: Bundesliga
+2025-02-01 17:08:18,284 - INFO - etl.extract - 
+Data saved to data/raw\teams_BL1.json
+2025-02-01 17:08:18,287 - INFO - etl.extract - Fetching teams for competition: Serie A
+2025-02-01 17:08:19,873 - INFO - etl.extract - 
+Data saved to data/raw\teams_SA.json
+2025-02-01 17:08:19,877 - INFO - etl.extract - Fetching teams for competition: Eredivisie
+2025-02-01 17:08:21,193 - INFO - etl.extract - 
+Data saved to data/raw\teams_DED.json
+2025-02-01 17:08:21,196 - INFO - etl.extract - Fetching teams for competition: Primeira Liga
+2025-02-01 17:08:22,672 - INFO - etl.extract - 
+Data saved to data/raw\teams_PPL.json
+2025-02-01 17:08:22,676 - INFO - etl.extract - Fetching teams for competition: Copa Libertadores
+2025-02-01 17:08:23,489 - WARNING - etl.extract - 
+Rate limit reached. Retrying in 60 seconds...
+2025-02-01 17:09:24,850 - INFO - etl.extract - 
+Data saved to data/raw\teams_CLI.json
+2025-02-01 17:09:24,854 - INFO - etl.extract - Fetching teams for competition: Primera Division
+2025-02-01 17:09:26,254 - INFO - etl.extract - 
+Data saved to data/raw\teams_PD.json
+2025-02-01 17:09:26,257 - INFO - etl.extract - Fetching teams for competition: FIFA World Cup
+2025-02-01 17:09:27,836 - INFO - etl.extract - 
+Data saved to data/raw\teams_WC.json
+2025-02-01 17:09:27,840 - INFO - __main__ - Transforming data
+2025-02-01 17:09:27,841 - INFO - etl.transform - Starting data transformation process
+2025-02-01 17:09:27,858 - INFO - etl.transform - Created competitions dimension with shape: (13, 2)
+2025-02-01 17:09:27,873 - INFO - etl.transform - Created teams dimension with shape: (226, 2)
+2025-02-01 17:09:27,874 - INFO - etl.transform - Created fact table with shape: (264, 2)
+2025-02-01 17:09:27,874 - INFO - etl.transform - Data transformation completed successfully
+2025-02-01 17:09:27,874 - INFO - __main__ - Loading data to database
+2025-02-01 17:09:27,875 - INFO - etl.load - Starting database tables creation
+2025-02-01 17:09:27,879 - INFO - etl.load - Successfully connected to database
+2025-02-01 17:09:27,928 - INFO - etl.load - Tables created successfully
+2025-02-01 17:09:27,929 - INFO - etl.load - Starting data loading process
+2025-02-01 17:09:27,942 - INFO - etl.load - Loaded 13 rows into dim_competitions
+2025-02-01 17:09:27,951 - INFO - etl.load - Loaded 226 rows into dim_teams
+2025-02-01 17:09:27,960 - INFO - etl.load - Loaded 264 rows into fact_competitions
+2025-02-01 17:09:27,961 - INFO - etl.load - Data loading completed successfully
+2025-02-01 17:09:27,962 - INFO - __main__ - Exporting summary
+2025-02-01 17:09:27,962 - INFO - __main__ - Starting summary export process
+2025-02-01 17:09:27,966 - INFO - __main__ - Query returned 12 rows
+2025-02-01 17:09:27,975 - INFO - __main__ - Summary exported to output/summary.csv
+2025-02-01 17:09:27,976 - INFO - __main__ - ETL process completed successfully
