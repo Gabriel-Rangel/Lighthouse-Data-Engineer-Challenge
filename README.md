@@ -21,3 +21,5 @@
 
 ## Requirements
 - Python 3.10 or higher (THIS PROJECT WAS BUILT WITH PYTHON 3.13.1)
+
+
