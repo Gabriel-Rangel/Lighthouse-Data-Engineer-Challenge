@@ -16,7 +16,7 @@
     ```
 4. Run the pipeline:
     ```bash
-    python src/main.py
+    python app/main.py
     ```
 
 ## Requirements
