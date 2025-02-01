@@ -12,14 +12,30 @@ Finally, output a CSV file summarizing the number of teams per competition in de
 4. [Requirements](#requirements)
 
 ## ETL Process
+The ETL Process is entirely writing in python, compost by 4 files mainly:
+
+1. The [main.py](app/main.py) file acts like an ETL orchestrator, its resposanble to run the whole process in the write execution order. 
+Also it is responsable to generates the summary.csv file asked in fouth part of this assessment.
+
+2. The [extract.py](app/etl/extract.py) file is responsable to hit the [API football-data.org](https://www.football-data.org/) and write the raw data inside the [data/raw/](data/raw/) directory of this repository.
+It generates mainly the file **competitions.json** that stores all competitions and the **teams_<$competition_code>.json** files that stores the teams for which competition.
+
+3. The [transform.py](app/etl/transform.py) receives the list of dictionaries from previous step and pcess all the transformations and them returns 3 pandas dataframe, one for each table in the datawarehouse.
+
+4. The [load.py](app/etl/load.py) is responsable to create database connection, drop the tables if them already exists, create the table and them load dataframe received from previous step in your respective table.
+
 ![ETL DIAGRAM](img/etldiagram.png)
+###
+**NOTE**: _FREE API SUBSCRIPTION only handles 10 requests per minute, so this script is prepared to wait 60 seconds after receive back the status code 429_.
+####
 
 
 ## Datawarehouse
-The ETL process creates a data warehouse as illustrated below:
-
-
+The ETL process creates a data warehouse as illustrated below with 2 dimensional tables (dim_competitions / dim_teams) and the fact table fact_competitions 
+that stores the records of teams that played in each of the competitions:
 ![DW DIAGRAM](img/dw_diagram.png)
+
+
 ## Repository Structure
 The project structure is organized as follows:
 
@@ -68,7 +84,7 @@ ETL_API_FOOTBALL/
     - **raw/**: Subdirectory for raw data files.
 
 - **db/**: Directory for database-related files.
-    - **football_data.sql**: SQL schema for setting up the database.
+    - **football_data.sql**: SQLite database.
 
 - **output/**: Directory for storing output files.
     - **summary.csv**: CSV file summarizing the number of teams per competition.
@@ -81,7 +97,7 @@ ETL_API_FOOTBALL/
 - **requirements.txt**: Lists the Python dependencies required for the project.
 
 This structure ensures a clear separation of concerns, making the project easy to navigate and maintain.
-The project structure is organized as follows:
+
 
 
 ## Quick Start
