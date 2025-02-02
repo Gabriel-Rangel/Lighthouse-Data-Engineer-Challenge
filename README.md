@@ -57,7 +57,7 @@ ETL_API_FOOTBALL/
 ├── data/
 │   └── raw/
 ├── db/
-│   └── schema.sql
+│   └── football_data.sql
 ├── output/
 │   └── summary.csv
 ├── log/
