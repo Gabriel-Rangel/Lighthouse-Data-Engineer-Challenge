@@ -8,24 +8,26 @@ from etl.extract import drop_data, extract_data
 from etl.transform import transform_data
 from etl.load import create_tables, load_data
 
-# Create logs directory if it doesn't exist
-LOGS_DIR = "logs"
-os.makedirs(LOGS_DIR, exist_ok=True)
-
-# Configure logging with timestamp in filename
-current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
-log_file = os.path.join(LOGS_DIR, f'football_etl_{current_time}.log')
-
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(name)s - %(message)s',
-    handlers=[
-        logging.FileHandler(log_file),
-        logging.StreamHandler()
-    ]
-)
-
 logger = logging.getLogger(__name__)
+
+def setup_logging():
+    """Configure logging with file and stream handlers"""
+    # Create logs directory if it doesn't exist
+    LOGS_DIR = "logs"
+    os.makedirs(LOGS_DIR, exist_ok=True)
+
+    # Configure logging with timestamp in filename 
+    current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_file = os.path.join(LOGS_DIR, f'football_etl_{current_time}.log')
+
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(levelname)s - %(name)s - %(message)s',
+        handlers=[
+            logging.FileHandler(log_file),
+            logging.StreamHandler()
+        ]
+    )
 
 def export_summary():
     """
@@ -127,4 +129,5 @@ def main():
 
 
 if __name__ == "__main__":
+    setup_logging() 
     main()
